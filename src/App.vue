@@ -1,17 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div id="vditor" style="height: 480px;background-color: #f6f8fa"></div>
+    <button @click="getMarkdownText()">打印</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Vditor from "vditor";
 export default {
   name: "App",
-  components: {
-    HelloWorld
+  components: {},
+  data() {
+    return {
+      editor: null
+    };
+  },
+  methods: {
+    initEditor() {
+      window.vditor = new Vditor("vditor", {
+        debugger: false,
+        typewriterMode: false,
+        placeholder: "placeholder",
+        counter: 100,
+        height: 500
+      });
+    },
+    getMarkdownText() {
+      this.editor = window?.vditor;
+      console.log(this.editor.getValue());
+    }
+  },
+  mounted() {
+    this.initEditor();
   }
 };
 </script>
@@ -21,7 +41,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
